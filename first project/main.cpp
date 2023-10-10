@@ -5,12 +5,18 @@
 #include <map>
 
 std::vector<std::string> read_file(const std::string& file_path);
+std::string get_graph_name(std::string line);
 
+enum GraphReaderMode{
+    NAME,
+    HEURISTIC,
+    NODE
+};
 class Graph {       
   public:     
     std::vector<std::string> nodes;
     std::map<char,char,int> edges;
-    std::map<char,int> heuristics;
+    std::map<char,std::map<char,int>> heuristics;
 };
 
 int main()
@@ -30,14 +36,21 @@ std::vector<std::string> read_file(const std::string& file_path){
         }
         rows.push_back(line);
     }
-    for(const auto i : rows)
+    for(const auto row : rows)
     {
         std::string current_graph_name;
-        if(i.find("graph") != std::string::npos)
+        if(row.find("graph") != std::string::npos)
         {
-            current_graph_name = i.substr(i.find(" ")+1,i.length());
-            std::cout << current_graph_name;
+            current_graph_name = get_graph_name(row);
+        }
+        if(row.find("graph") != std::string::npos)
+        {
+
         }
     }
     return rows;
+}
+std::string get_graph_name(std::string row)
+{
+    return row.substr(row.find(" ")+1,row.length());
 }
