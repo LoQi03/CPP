@@ -33,7 +33,11 @@ std::vector<std::string> read_file(const std::string& file_path){
     for(const auto i : rows)
     {
         std::string current_graph_name;
-        
+        if(i.find("graph") != std::string::npos)
+        {
+            current_graph_name = i.substr(i.find(" ")+1,i.length());
+            std::cout << current_graph_name;
+        }
     }
     return rows;
 }
