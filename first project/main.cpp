@@ -1,14 +1,39 @@
-#include <list>
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+#include <map>
 
+std::vector<std::string> read_file(const std::string& file_path);
+
+class Graph {       
+  public:     
+    std::vector<std::string> nodes;
+    std::map<char,char,int> edges;
+    std::map<char,int> heuristics;
+};
 
 int main()
 {
-    std::list<int> num_list = {1,2,3,4,5};
-    num_list.push_back(1);
-    for(const auto i : num_list)
-    {
-        std::cout << i << "\n";
-    }
+    std::vector<std::string> lines = read_file("graph.txt");
     return 0;
+}
+std::vector<std::string> read_file(const std::string& file_path){
+    std::ifstream file_reader(file_path);
+    std::string line;
+    std::vector<std::string> rows;
+    std::map<std::string,Graph> graphs;
+    while (getline (file_reader, line)) {
+        if(line.find("#") != std::string::npos)
+        {
+            continue;
+        }
+        rows.push_back(line);
+    }
+    for(const auto i : rows)
+    {
+        std::string current_graph_name;
+        
+    }
+    return rows;
 }
